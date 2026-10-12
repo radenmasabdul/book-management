@@ -48,12 +48,10 @@ export class Login {
       .subscribe({
         next: (response) => {
           this.alertService.success(response.message ?? 'Login successful.');
-          console.log('Login response:', response);
           void this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           this.alertService.error(error?.error?.message ?? 'Login failed.');
-          console.error('Login error:', error);
         },
       });
   }
