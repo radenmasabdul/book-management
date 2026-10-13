@@ -1,0 +1,50 @@
+@if (open()) {
+  <div class="fixed inset-0 z-60 bg-black/50 lg:hidden" aria-hidden="true" (click)="onClose()"></div>
+}
+
+<div class="w-16 shrink-0 lg:hidden" aria-hidden="true"></div>
+
+<aside
+  class="group fixed inset-y-0 left-0 z-70 flex h-dvh w-16 flex-col overflow-hidden border-r border-sidebar-border bg-sidebar
+    text-sidebar-foreground transition-[width] duration-200 data-[open=true]:w-72 lg:sticky lg:top-0 lg:h-dvh lg:z-auto lg:w-72
+    lg:shrink-0
+  "
+  [attr.data-open]="open()"
+  aria-label="Sidebar navigation"
+>
+  <div class="flex h-16 shrink-0 items-center border-sidebar-border px-3 group-data-[open=true]:px-4 lg:px-4">
+    <app-header
+      [isMobileMenuOpen]="open()"
+      (menuClick)="onToggle()"
+      (brandClick)="onClose()"
+    />
+  </div>
+
+  <nav class="mt-6 flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-2 group-data-[open=true]:px-4 lg:px-4"
+    aria-label="Main menu"
+  >
+    @for (item of navItems; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="bg-sidebar-accent text-sidebar-accent-foreground"
+        [routerLinkActiveOptions]="{ exact: true }" #rla="routerLinkActive"
+        [attr.aria-current]="rla.isActive ? 'page' : null" [attr.aria-label]="item.label"
+        class="relative flex shrink-0 items-center justify-center gap-3 rounded-md px-3 py-2.5 text-sm text-sidebar-foreground/70
+          transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-none
+          focus-visible:ring-2 focus-visible:ring-sidebar-ring group-data-[open=true]:justify-start lg:justify-start
+        "
+        (click)="onClose()"
+      >
+        @if (rla.isActive) {
+          <span class="absolute right-0 top-0 h-full w-0.5 bg-sidebar-primary" aria-hidden="true"></span>
+        }
+        
+        <ng-icon [name]="item.icon" size="16" />
+        
+        <span class="hidden group-data-[open=true]:inline lg:inline">
+          {{ item.label }}
+        </span>
+      </a>
+    }
+  </nav>
+</aside>

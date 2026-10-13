@@ -1,5 +1,6 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { Header } from './header';
 
 describe('Header', () => {
@@ -31,8 +32,9 @@ describe('Header', () => {
   });
 
   it('should render the mobile menu button', () => {
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('button[aria-label="Toggle navigation menu"]');
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[aria-label="Toggle navigation menu"]',
+    );
 
     expect(button).toBeTruthy();
     expect(button.getAttribute('aria-expanded')).toBe('false');
@@ -41,21 +43,28 @@ describe('Header', () => {
   it('should emit menuClick when the menu button is clicked', () => {
     const menuClickSpy = vi.spyOn(component.menuClick, 'emit');
 
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('button[aria-label="Toggle navigation menu"]');
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[aria-label="Toggle navigation menu"]',
+    );
 
     button.click();
 
     expect(menuClickSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should emit brandClick when the brand link is clicked', () => {
+  it('should emit brandClick when the brand link is clicked', async () => {
     const brandClickSpy = vi.spyOn(component.brandClick, 'emit');
 
-    const brandLink: HTMLAnchorElement =
-      fixture.nativeElement.querySelector('a[routerLink="/dashboard"]');
+    const router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
+
+    const brandLink: HTMLAnchorElement = fixture.nativeElement.querySelector(
+      'a[routerLink="/dashboard"]',
+    );
 
     brandLink.click();
+
+    await fixture.whenStable();
 
     expect(brandClickSpy).toHaveBeenCalledTimes(1);
   });
@@ -64,8 +73,9 @@ describe('Header', () => {
     fixture.componentRef.setInput('isMobileMenuOpen', true);
     fixture.detectChanges();
 
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('button[aria-label="Toggle navigation menu"]');
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[aria-label="Toggle navigation menu"]',
+    );
 
     expect(button.getAttribute('aria-expanded')).toBe('true');
     expect(button.querySelector('ng-icon[name="lucideX"]')).toBeTruthy();
@@ -75,8 +85,9 @@ describe('Header', () => {
     fixture.componentRef.setInput('isMobileMenuOpen', false);
     fixture.detectChanges();
 
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('button[aria-label="Toggle navigation menu"]');
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[aria-label="Toggle navigation menu"]',
+    );
 
     expect(button.getAttribute('aria-expanded')).toBe('false');
     expect(button.querySelector('ng-icon[name="lucideMenu"]')).toBeTruthy();

@@ -14,22 +14,25 @@
       <ng-icon name="lucideMenu" size="22" aria-hidden="true" />
     }
   </button>
-  
+
   <a
     routerLink="/dashboard"
-    class="flex min-w-0 items-center gap-2.5 rounded-lg"
+    class="min-w-0 items-center gap-2.5 rounded-lg lg:flex"
+    [class.flex]="isMobileMenuOpen"
+    [class.hidden]="!isMobileMenuOpen"
+    aria-label="Book Management"
     (click)="closeMobileMenu()"
   >
     <div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
       <ng-icon name="lucideBookOpen" size="23" aria-hidden="true" />
     </div>
-  
+
     <div class="min-w-0">
       <span class="block truncate text-base font-bold tracking-tight text-foreground">
         Book Management
       </span>
-      
-      <span class="hidden text-xs text-muted-foreground sm:block">
+
+      <span class="block truncate text-xs text-muted-foreground">
         Library administration
       </span>
     </div>
