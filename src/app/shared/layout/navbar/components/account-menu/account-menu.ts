@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { lucideChevronDown, lucideLogOut, lucideSettings, lucideUserRound } from '@ng-icons/lucide';
-import { AuthService } from '../../../../../../../features/auth/services/auth.service';
+import { AuthService } from '../../../../../features/auth/services/auth.service';
 
 @Component({
   selector: 'app-account-menu',
@@ -54,7 +54,7 @@ export class AccountMenu {
       },
       error: () => {
         this.isLoggingOut.set(false);
-        this.logoutError.set('Logout gagal. Silakan coba lagi.');
+        this.logoutError.set('Logout failed. Please try again.');
       },
     });
   }

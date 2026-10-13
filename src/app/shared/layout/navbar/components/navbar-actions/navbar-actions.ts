@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ThemeComponent } from '../../../../components/theme/theme';
-import { Notification } from './components/notification/notification';
-import { AccountMenu } from './components/account-menu/account-menu';
+import { Notification } from '../notification/notification';
+import { AccountMenu } from '../account-menu/account-menu';
 
 @Component({
   selector: 'app-navbar-actions',

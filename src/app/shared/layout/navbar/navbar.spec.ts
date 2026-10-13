@@ -23,45 +23,14 @@ describe('Navbar', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the header component', () => {
-    const header = fixture.nativeElement.querySelector('app-header');
-
-    expect(header).toBeTruthy();
-  });
-
   it('should render the navbar actions component', () => {
-    const navbarActions =
-      fixture.nativeElement.querySelector('app-navbar-actions');
+    const navbarActions = fixture.nativeElement.querySelector('app-navbar-actions');
 
     expect(navbarActions).toBeTruthy();
   });
 
-  it('should not display mobile navigation by default', () => {
-    const mobileNav =
-      fixture.nativeElement.querySelector('app-mobile-nav');
-
-    expect(mobileNav).toBeNull();
-  });
-
-  it('should display mobile navigation when the menu is open', () => {
-    component.onMenuClick();
-    fixture.detectChanges();
-
-    const mobileNav =
-      fixture.nativeElement.querySelector('app-mobile-nav');
-
-    expect(mobileNav).toBeTruthy();
-  });
-
-  it('should close mobile navigation when closeMobileMenu is called', () => {
-    component.onMenuClick();
-    fixture.detectChanges();
-
-    component.closeMobileMenu();
-    fixture.detectChanges();
-
-    const mobileNav =
-      fixture.nativeElement.querySelector('app-mobile-nav');
+  it('should not render the removed mobile navigation component', () => {
+    const mobileNav = fixture.nativeElement.querySelector('app-mobile-nav');
 
     expect(mobileNav).toBeNull();
   });
