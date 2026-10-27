@@ -1,0 +1,19 @@
+<main class="flex text-foreground">
+  <section class="flex min-h-screen w-full items-center justify-center px-6 py-12 sm:px-10 lg:w-1/2 lg:px-16 xl:px-24">
+    <div class="w-full max-w-sm">
+      <app-header/>
+      
+      <app-login-form
+        [form]="form"
+        [isLoading]="isLoading()"
+        [showPassword]="showPassword()"
+        (submitted)="onSubmit()"
+        (passwordVisibilityToggled)="togglePassword()"
+      />
+    </div>
+  </section>
+
+  <section class="relative hidden min-h-screen overflow-hidden bg-primary lg:flex lg:w-1/2 lg:items-center lg:justify-center">
+    <app-login-hero />
+  </section>
+</main>

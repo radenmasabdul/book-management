@@ -1,0 +1,109 @@
+<div class="mb-8">
+  <h2 class="text-2xl font-semibold tracking-tight text-foreground">
+    Welcome back
+  </h2>
+
+  <p class="mt-2 text-sm leading-6 text-muted-foreground">
+    Log in to manage your book collection.
+  </p>
+</div>
+
+<form
+  [formGroup]="form()"
+  (ngSubmit)="onFormSubmit()"
+  class="space-y-4"
+  novalidate
+>
+  <div class="space-y-1.5">
+    <label for="email" class="sr-only">Email</label>
+
+    <div class="relative">
+      <ng-icon name="lucideAtSign" size="18"
+        class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        placeholder="Enter email address"
+        [attr.aria-invalid]="
+          form().controls['email'].touched &&
+          form().controls['email'].invalid
+        "
+        class="h-12 w-full rounded-lg border border-input bg-background pl-11 pr-4 text-sm text-foreground
+        outline-none transition placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2
+        focus-visible:ring-ring/20 aria-invalid:border-destructive"
+      />
+    </div>
+
+    @if (
+      form().controls['email'].touched &&
+      form().controls['email'].hasError('required')
+    ) {
+      <p class="text-xs text-destructive">Email is required.</p>
+    } @else if (
+      form().controls['email'].touched &&
+      form().controls['email'].hasError('email')
+    ) {
+      <p class="text-xs text-destructive">Invalid email format.</p>
+    }
+  </div>
+
+  <div class="space-y-1.5">
+    <label for="password" class="sr-only">Password</label>
+
+    <div class="relative">
+      <ng-icon name="lucideLock" size="18"
+        class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+      />
+
+      <input
+        id="password"
+        [type]="showPassword() ? 'text' : 'password'"
+        formControlName="password"
+        autocomplete="current-password"
+        placeholder="Enter password" [attr.aria-invalid]="
+          form().controls['password'].touched &&
+          form().controls['password'].invalid
+        "
+        class="h-12 w-full rounded-lg border border-input bg-background pl-11 pr-11 text-sm text-foreground
+        outline-none transition placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2
+        focus-visible:ring-ring/20 aria-invalid:border-destructive"
+      />
+
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="
+          showPassword() ? 'Hide password' : 'Show password'
+        "
+        class="absolute right-3.5 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground transition hover:text-foreground">
+        <ng-icon [name]="showPassword() ? 'lucideEyeOff' : 'lucideEye'" size="18" />
+      </button>
+    </div>
+
+    @if (
+      form().controls['password'].touched &&
+      form().controls['password'].hasError('required')
+    ) {
+      <p class="text-xs text-destructive">Password is required.</p>
+    }
+  </div>
+
+  <button type="submit" [disabled]="isLoading()"
+    class="mt-2 flex h-12 w-full cursor-pointer items-center justify-center rounded-lg bg-primary px-4 text-sm
+    font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none
+    focus-visible:ring-4 focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-60"
+  >
+    {{ isLoading() ? 'Processing...' : 'Log in' }}
+  </button>
+</form>
+
+<div class="mt-8 flex items-center justify-center gap-2">
+  <ng-icon name="lucideLock" size="14" class="shrink-0 text-muted-foreground" />
+
+  <p class="text-xs text-muted-foreground">
+    Secure access to your book collection.
+  </p>
+</div>
